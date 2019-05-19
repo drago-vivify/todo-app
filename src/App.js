@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import TodoList from './components/TodoList';
+import TodoForm from './components/TodoForm';
 
 class App extends React.Component {
   constructor(props) {
@@ -26,10 +27,22 @@ class App extends React.Component {
     });
   };
 
+  handleTodoSubmit = title => {
+    const todo = {
+      id: this.state.todos.length + 1,
+      title,
+      isChecked: false
+    };
+    this.setState({
+      todos: [...this.state.todos, todo]
+    });
+  };
+
   render() {
     return (
       <div className="App">
         <TodoList todos={this.state.todos} handleTodoClick={this.handleTodoClick} />
+        <TodoForm onTodoSubmit={this.handleTodoSubmit} />
       </div>
     );
   }
