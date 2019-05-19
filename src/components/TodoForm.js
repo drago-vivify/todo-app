@@ -1,6 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { addTodoWithPersistance } from '../store';
 
-export default class TodoForm extends React.Component {
+class TodoForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -12,7 +14,7 @@ export default class TodoForm extends React.Component {
     event.preventDefault();
     const { title } = this.state;
 
-    this.props.onTodoSubmit(title);
+    this.props.addTodo(title);
     this.setState({ title: '' });
   };
 
@@ -34,3 +36,11 @@ export default class TodoForm extends React.Component {
     );
   }
 }
+
+function mapDispatchToProps(dispatch) {
+  return {
+    addTodo: todo => dispatch(addTodoWithPersistance(todo))
+  };
+}
+
+export default connect(null, mapDispatchToProps)(TodoForm);

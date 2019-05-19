@@ -20,7 +20,10 @@ function UncheckedTodoItem({ todo }) {
 export default function TodoItem({ todo, onTodoClick }) {
   return (
     <div onClick={() => onTodoClick(todo)}>
-      {todo.isChecked ? <CheckedTodoItem todo={todo} /> : <UncheckedTodoItem todo={todo} />}
+      {todo.isChecked 
+        ? <CheckedTodoItem todo={todo} /> 
+        : <UncheckedTodoItem todo={todo} />
+        }
     </div>
   );
 }

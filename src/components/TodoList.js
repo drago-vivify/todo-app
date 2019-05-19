@@ -1,7 +1,14 @@
 import React from 'react';
-import TodoItem from './TodoItem';
+import { connect } from 'react-redux';
 
-export default function TodoList({ todos, handleTodoClick }) {
+import TodoItem from './TodoItem';
+import { checkTodoWithPersistance } from '../store';
+
+function TodoList({ todos, checkTodo }) {
+  const handleTodoClick = todo => {
+    checkTodo(todo);
+  };
+
   return (
     <div>
       <h1>My Todo List</h1>
@@ -13,3 +20,23 @@ export default function TodoList({ todos, handleTodoClick }) {
     </div>
   );
 }
+
+function mapStateToProps(state) {
+  return {
+    todos: state
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    checkTodo: function(todo) {
+      dispatch(checkTodoWithPersistance(todo));
+    }
+  };
+}
+
+const TodoListContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TodoList);
+export default TodoListContainer;
